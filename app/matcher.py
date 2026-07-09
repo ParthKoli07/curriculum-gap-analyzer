@@ -29,10 +29,11 @@ SOFT_SKILLS = {
     'engineering', 'operations', 'reporting', 'compliance',
     'recruitment', 'onboarding', 'payroll', 'benefits administration'
 }
+from app.preprocess import load_tech_job_data, extract_skills_list, load_syllabus
 
 def get_industry_skills(top_n=300):
-    """Get top N technical skills from job postings dataset"""
-    df = load_job_data()
+    """Get top N technical skills from tech job postings only"""
+    df = load_tech_job_data()  # changed from load_job_data
     skill_counts = extract_skills_list(df)
 
     filtered_skills = {}
