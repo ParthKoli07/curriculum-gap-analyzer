@@ -1,0 +1,41 @@
+Mumbai University BSc Computer Science Syllabus
+
+SEMESTER 1
+Digital Systems and Architecture: Logic Gates, Boolean Algebra, Combinational Circuits, Sequential Circuits, Flip Flops, Registers, Memory Organization, Processor Architecture
+Fundamentals of Database Systems: ER Diagrams, Relational Model, SQL, Normalization, Transactions, Indexing, Database Design
+Introduction to Programming with Python: Variables, Data Types, Control Flow, Functions, Lists, Tuples, Dictionaries, File Handling, Basic OOP
+Statistics with R Programming: Descriptive Statistics, Probability, Distributions, Hypothesis Testing, Regression, Data Visualization in R
+Introduction to Communication Skills: Reading, Writing, Listening, Speaking, Professional Communication
+
+SEMESTER 2
+Design and Analysis of Algorithms: Sorting Algorithms, Searching Algorithms, Divide and Conquer, Dynamic Programming, Greedy Algorithms, Graph Algorithms, Time Complexity, Space Complexity, Big O Notation
+Object Oriented Programming using C++: Classes, Objects, Inheritance, Polymorphism, Encapsulation, Abstraction, Templates, Exception Handling, STL
+Web Technologies: HTML, CSS, JavaScript, DOM Manipulation, Responsive Design, Bootstrap, PHP, HTTP Protocol
+Advanced Python Programming: Advanced OOP, Decorators, Generators, Regular Expressions, Multithreading, Web Scraping, NumPy, Pandas, Matplotlib
+
+SEMESTER 3
+Principles of Operating Systems: Process Management, Threads, CPU Scheduling, Memory Management, Virtual Memory, File Systems, Deadlocks, Synchronization
+Theory of Computation: Finite Automata, Regular Expressions, Context Free Grammars, Pushdown Automata, Turing Machines, Decidability, Complexity Classes
+Data Structures: Arrays, Linked Lists, Stacks, Queues, Trees, Binary Search Trees, AVL Trees, Heaps, Hash Tables, Graphs, BFS, DFS
+Java Programming: Core Java, OOP in Java, Collections Framework, Exception Handling, File I/O, JDBC, Multithreading, Swing
+
+SEMESTER 4
+Computer Networks: OSI Model, TCP/IP, IP Addressing, Subnetting, Routing Protocols, DNS, HTTP, FTP, Network Security, Socket Programming
+Software Engineering: SDLC, Agile Methodology, Scrum, Software Requirements, UML Diagrams, Software Testing, Version Control, Git, Project Management
+IoT Technologies and Physical Computing: Arduino, ESP32, Sensors, Actuators, Raspberry Pi, MQTT Protocol, IoT Protocols, Embedded Systems, Physical Computing
+Mobile Application Development: Android Development, React Native, UI Design, REST APIs, SQLite, Push Notifications
+
+SEMESTER 5
+Artificial Intelligence: Search Algorithms, BFS, DFS, A* Algorithm, Knowledge Representation, Expert Systems, Natural Language Processing, Machine Learning Basics, Neural Networks
+Cyber and Information Security: Cryptography, Encryption, Network Security, Ethical Hacking Basics, Firewalls, Intrusion Detection, Vulnerability Assessment, Security Protocols
+Moral and Ethical AI: AI Ethics, Bias in AI, Fairness, Accountability, Transparency, Responsible AI, Privacy, Data Ethics
+Game Programming: Game Development, Unity, Game Physics, 2D and 3D Graphics, Game AI, Collision Detection
+Linux Server Administration: Linux Commands, Shell Scripting, Server Configuration, Apache, Nginx, User Management, Cron Jobs
+Software Testing and Quality Assurance: Unit Testing, Integration Testing, Selenium, Test Cases, Bug Tracking, QA Processes
+
+SEMESTER 6
+Data Science: Data Preprocessing, Exploratory Data Analysis, Feature Engineering, Machine Learning, Classification, Regression, Clustering, Model Evaluation, scikit-learn, pandas, NumPy, Matplotlib, Seaborn, Jupyter Notebook
+Cloud Computing and Web Services: AWS, Azure, Google Cloud, Virtualization, Docker, Kubernetes, REST APIs, Microservices, Serverless Computing, DevOps
+Information Retrieval: Search Engines, Indexing, TF-IDF, Vector Space Model, Text Classification, NLP, Sentiment Analysis
+Ethical Hacking: Penetration Testing, Vulnerability Assessment, Kali Linux, Metasploit, Network Scanning, Web Application Security
+Capstone Project: Software Development, Deployment, Documentation, Version Control, GitHub, Project Management
