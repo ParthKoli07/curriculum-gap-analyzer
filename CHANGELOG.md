@@ -30,3 +30,6 @@
 - Created data/syllabus.txt with full 6-semester CS curriculum
 - Gap analysis working: 300 skills analyzed, Python/SQL/Java/AWS detected as covered
 - Gap report saved to data/gap_report.csv
+- Built recommender.py with resource map for 25+ tech skills
+- Fixed job filter to CS-specific roles only (32K tech jobs)
+- Clean gap results: C++, NoSQL, TypeScript, Terraform, Jenkins, Tableau, JIRA identified as gaps
