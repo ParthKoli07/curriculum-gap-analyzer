@@ -42,3 +42,13 @@
 - Added expandable free learning resource cards per gap
 - Added CSV download button for full gap report
 - Full pipeline working end to end via UI
+
+## [Day 5] — 2026-07-11
+### UI Polish & Documentation
+- Polished Streamlit UI with custom CSS, progress bar, coverage indicator
+- Added NLP Powered badge, About section with college info
+- Added Step 1/2/3 landing page cards
+- Added sample gaps preview table on landing page
+- Added two download buttons (full report + gaps only)
+- Updated README with full setup instructions, features, tech stack
+- Added demo screenshot to docs

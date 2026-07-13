@@ -105,6 +105,56 @@ RESOURCE_MAP = {
     'tableau': [
         {'title': 'Tableau Public Training', 'platform': 'Tableau (Free)', 'url': 'https://www.tableau.com/learn/training'},
     ],
+
+    # DevOps & Tools
+    'jenkins': [
+        {'title': 'Jenkins Full Course', 'platform': 'YouTube (Edureka)', 'url': 'https://www.youtube.com/watch?v=FX322RVNGj4'},
+        {'title': 'Jenkins Getting Started', 'platform': 'Official Jenkins Docs', 'url': 'https://www.jenkins.io/doc/pipeline/tour/getting-started/'},
+    ],
+    'terraform': [
+        {'title': 'Terraform Full Course', 'platform': 'YouTube (freeCodeCamp)', 'url': 'https://www.youtube.com/watch?v=SLB_c_ayRMo'},
+        {'title': 'Terraform Getting Started', 'platform': 'HashiCorp Learn (Free)', 'url': 'https://developer.hashicorp.com/terraform/tutorials'},
+    ],
+    'jira': [
+        {'title': 'Jira Tutorial for Beginners', 'platform': 'YouTube (Atlassian)', 'url': 'https://www.youtube.com/watch?v=GWxMTvRGIpc'},
+        {'title': 'Jira Official Tutorials', 'platform': 'Atlassian (Free)', 'url': 'https://www.atlassian.com/software/jira/guides'},
+    ],
+    'typescript': [
+        {'title': 'TypeScript Full Course', 'platform': 'YouTube (freeCodeCamp)', 'url': 'https://www.youtube.com/watch?v=30LWjhZzg50'},
+        {'title': 'TypeScript Handbook', 'platform': 'Official TypeScript Docs', 'url': 'https://www.typescriptlang.org/docs/handbook/intro.html'},
+    ],
+    'scala': [
+        {'title': 'Scala Tutorial', 'platform': 'YouTube (Rock the JVM)', 'url': 'https://www.youtube.com/watch?v=DzFt0YkZo8M'},
+        {'title': 'Scala Exercises', 'platform': 'scala-exercises.org (Free)', 'url': 'https://www.scala-exercises.org/'},
+    ],
+    'nosql': [
+        {'title': 'NoSQL Database Tutorial', 'platform': 'YouTube (freeCodeCamp)', 'url': 'https://www.youtube.com/watch?v=xh4gy1lbL2k'},
+        {'title': 'MongoDB University (Free)', 'platform': 'MongoDB', 'url': 'https://university.mongodb.com/'},
+    ],
+    'kafka': [
+        {'title': 'Apache Kafka Full Course', 'platform': 'YouTube (Edureka)', 'url': 'https://www.youtube.com/watch?v=06iRM1Ghr1k'},
+    ],
+    'spark': [
+        {'title': 'Apache Spark Full Course', 'platform': 'YouTube (freeCodeCamp)', 'url': 'https://www.youtube.com/watch?v=_C8kWso4ne4'},
+    ],
+    'redis': [
+        {'title': 'Redis Crash Course', 'platform': 'YouTube (Traversy Media)', 'url': 'https://www.youtube.com/watch?v=jgpVdJB2sKQ'},
+    ],
+    'ansible': [
+        {'title': 'Ansible Full Course', 'platform': 'YouTube (TechWorld with Nana)', 'url': 'https://www.youtube.com/watch?v=1id6ERvfozo'},
+    ],
+    'golang': [
+        {'title': 'Go Programming Full Course', 'platform': 'YouTube (freeCodeCamp)', 'url': 'https://www.youtube.com/watch?v=un6ZyFkqFKo'},
+    ],
+    'rust': [
+        {'title': 'Rust Full Course', 'platform': 'YouTube (freeCodeCamp)', 'url': 'https://www.youtube.com/watch?v=BpPEoZW5IiY'},
+    ],
+    'microservices': [
+        {'title': 'Microservices Full Course', 'platform': 'YouTube (freeCodeCamp)', 'url': 'https://www.youtube.com/watch?v=rv4LlmLmVWk'},
+    ],
+    'ci/cd': [
+        {'title': 'CI/CD Pipeline Tutorial', 'platform': 'YouTube (TechWorld with Nana)', 'url': 'https://www.youtube.com/watch?v=R8_veQiYBjI'},
+    ],
 }
 
 DEFAULT_RESOURCE = [
