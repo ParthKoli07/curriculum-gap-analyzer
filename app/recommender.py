@@ -1,3 +1,16 @@
+"""
+recommender.py
+--------------
+Free learning resource recommendation engine for Curriculum Gap Analyzer.
+Maps identified skill gaps to curated free courses from NPTEL, Coursera,
+YouTube, and other platforms.
+
+Author: Parth Koli
+College: Satish Pradhan Dnyanasadhana College, Thane
+Project: Curriculum Gap Analyzer (Final Year Project 2026-27)
+"""
+
+
 # Free learning resources mapped to common tech skills
 RESOURCE_MAP = {
     # Programming Languages

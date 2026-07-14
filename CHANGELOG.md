@@ -52,3 +52,10 @@
 - Added two download buttons (full report + gaps only)
 - Updated README with full setup instructions, features, tech stack
 - Added demo screenshot to docs
+
+## [Day 6] — 2026-07-13
+### Resource Improvements & UI Polish
+- Added specific course links for 15+ new skills in recommender.py
+- Jenkins, Terraform, JIRA, TypeScript, Scala, NoSQL, Kafka, Spark, Redis, Ansible, Golang, Rust, Microservices, CI/CD all now have direct course links
+- Verified all links open correctly
+- Added noise filters for non-CS skills in matcher.py

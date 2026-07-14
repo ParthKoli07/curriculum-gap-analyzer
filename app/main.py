@@ -1,3 +1,16 @@
+"""
+main.py
+-------
+Pipeline orchestrator for Curriculum Gap Analyzer.
+Ties together preprocessing, gap analysis, and recommendations
+into a single end-to-end pipeline.
+
+Author: Parth Koli
+College: Satish Pradhan Dnyanasadhana College, Thane
+Project: Curriculum Gap Analyzer (Final Year Project 2026-27)
+"""
+
+
 from app.preprocess import load_tech_job_data, extract_skills_list, load_syllabus
 from app.matcher import compute_gap, print_gap_summary
 from app.recommender import recommend_for_gaps, print_recommendations
