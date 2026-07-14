@@ -59,3 +59,10 @@
 - Jenkins, Terraform, JIRA, TypeScript, Scala, NoSQL, Kafka, Spark, Redis, Ansible, Golang, Rust, Microservices, CI/CD all now have direct course links
 - Verified all links open correctly
 - Added noise filters for non-CS skills in matcher.py
+
+## [Day 7] — 2026-07-14
+### Testing & Cleanup
+- Fixed Streamlit deprecation warnings (use_container_width → width)
+- Added error handling for missing syllabus/dataset files
+- Added module-level docstrings to all app/ files
+- Updated requirements.txt
