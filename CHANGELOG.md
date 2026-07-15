@@ -66,3 +66,18 @@
 - Added error handling for missing syllabus/dataset files
 - Added module-level docstrings to all app/ files
 - Updated requirements.txt
+
+## [Day 8] — 2026-07-15
+### Hugging Face Integration & Cloud Deployment
+- Created a filtered CS/tech jobs dataset with 32,548 job records
+- Reduced the original dataset to a 19.35 MB deployment-friendly CSV
+- Uploaded the filtered dataset to Hugging Face as a public dataset
+- Updated preprocess.py to load the tech jobs dataset directly from Hugging Face instead of local CSV files
+- Updated matcher.py to use the new load_tech_job_data() function
+- Added the datasets library to requirements.txt
+- Successfully tested loading all 32,548 job records from Hugging Face
+- Verified skill extraction and industry skill frequency analysis with the new dataset source
+- Tested the complete Streamlit application locally after Hugging Face integration
+- Pushed the updated project to GitHub
+- Deployed Curriculum Gap Analyzer on Streamlit Community Cloud
+- Configured a custom Streamlit app URL
