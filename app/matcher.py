@@ -1,7 +1,20 @@
+"""
+matcher.py
+----------
+Core gap analysis engine for Curriculum Gap Analyzer.
+Compares industry skill demands against college syllabus content
+using keyword matching and frequency analysis.
+
+Author: Parth Koli
+College: Satish Pradhan Dnyanasadhana College, Thane
+Project: Curriculum Gap Analyzer (Final Year Project 2026-27)
+"""
+
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from app.preprocess import load_job_data, extract_skills_list, load_syllabus
+from app.preprocess import load_tech_job_data, extract_skills_list, load_syllabus
 
 SOFT_SKILLS = {
     'communication', 'customer service', 'teamwork', 'leadership',
