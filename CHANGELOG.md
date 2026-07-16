@@ -81,3 +81,11 @@
 - Pushed the updated project to GitHub
 - Deployed Curriculum Gap Analyzer on Streamlit Community Cloud
 - Configured a custom Streamlit app URL
+
+## [Day 9] — 2026-07-16
+### Syllabus File Uploader
+- Added syllabus source radio button in sidebar (default vs upload)
+- Added file uploader supporting TXT and PDF formats
+- Updated matcher.py compute_gap() to accept custom syllabus text
+- Updated main.py run_analysis() to pass syllabus text through pipeline
+- Tested with custom syllabus upload — 24.3% coverage confirmed
