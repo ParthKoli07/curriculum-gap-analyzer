@@ -67,13 +67,24 @@ with st.sidebar:
         value=10, step=5
     )
     
-    st.markdown("---")
     st.markdown("### 📄 Syllabus")
-    st.markdown("Currently loaded: `data/syllabus.txt`")
-    st.markdown("*(BSc CS — 6 Semesters)*")
+    syllabus_option = st.radio(
+        "Choose syllabus source:",
+        ["Use default (BSc CS)", "Upload my own"]
+    )
+    
+    uploaded_syllabus = None
+    if syllabus_option == "Upload my own":
+        uploaded_syllabus = st.file_uploader(
+            "Upload your syllabus",
+            type=["txt", "pdf"],
+            help="Upload a .txt or .pdf file of your syllabus"
+        )
+        if uploaded_syllabus is None:
+            st.warning("⚠️ Please upload a syllabus file")
     
     st.markdown("---")
-    run_btn = st.button("🚀 Run Analysis", use_container_width=True, type="primary")
+    run_btn = st.button("🚀 Run Analysis", width='stretch', type="primary")
     
     st.markdown("---")
     st.markdown("### ℹ️ About")
@@ -85,10 +96,28 @@ with st.sidebar:
 
 # Main content
 if run_btn:
+    # Handle syllabus input
+    syllabus_text = None
+    if syllabus_option == "Upload my own":
+        if uploaded_syllabus is None:
+            st.error("❌ Please upload a syllabus file first!")
+            st.stop()
+        
+        # Read uploaded file
+        if uploaded_syllabus.type == "text/plain":
+            syllabus_text = uploaded_syllabus.read().decode("utf-8")
+        elif uploaded_syllabus.type == "application/pdf":
+            import pypdf2
+            pdf_reader = pypdf2.PdfReader(uploaded_syllabus)
+            syllabus_text = ""
+            for page in pdf_reader.pages:
+                syllabus_text += page.extract_text()
+
     with st.spinner("🔍 Analyzing 32,000+ tech job postings... please wait ⏳"):
         df_report, recommendations = run_analysis(
             top_n_skills=top_n,
-            top_n_recommendations=top_recs
+            top_n_recommendations=top_recs,
+            syllabus_text=syllabus_text
         )
 
     gaps = df_report[df_report['is_gap'] == True]
@@ -126,7 +155,7 @@ if run_btn:
         gap_display = gaps[['skill', 'industry_frequency']].head(15).reset_index(drop=True)
         gap_display.index += 1
         gap_display.columns = ['Skill', 'Industry Demand']
-        st.dataframe(gap_display, use_container_width=True, height=400)
+        st.dataframe(gap_display, width='stretch', height=400)
 
     with col_right:
         st.markdown("### ✅ Skills Covered")
@@ -134,7 +163,7 @@ if run_btn:
         covered_display = covered[['skill', 'industry_frequency']].head(15).reset_index(drop=True)
         covered_display.index += 1
         covered_display.columns = ['Skill', 'Industry Demand']
-        st.dataframe(covered_display, use_container_width=True, height=400)
+        st.dataframe(covered_display, width='stretch', height=400)
 
     st.markdown("---")
 
@@ -171,7 +200,7 @@ if run_btn:
             data=csv,
             file_name="curriculum_gap_report.csv",
             mime="text/csv",
-            use_container_width=True
+            width='stretch'
         )
     with col_dl2:
         gaps_only = gaps[['skill', 'industry_frequency']].to_csv(index=False)
@@ -180,7 +209,7 @@ if run_btn:
             data=gaps_only,
             file_name="skill_gaps_only.csv",
             mime="text/csv",
-            use_container_width=True
+            width='stretch'
         )
 
 else:
@@ -203,4 +232,4 @@ else:
         'Industry Demand': [2748, 1943, 1919, 1861, 1835, 1764, 1704, 1882],
         'Status': ['❌ Gap', '❌ Gap', '❌ Gap', '❌ Gap', '❌ Gap', '❌ Gap', '❌ Gap', '❌ Gap']
     }
-    st.dataframe(pd.DataFrame(sample_data), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(sample_data), width='stretch', hide_index=True)

@@ -46,7 +46,7 @@ from app.preprocess import load_tech_job_data, extract_skills_list, load_syllabu
 
 def get_industry_skills(top_n=300):
     """Get top N technical skills from tech job postings only"""
-    df = load_tech_job_data()  # changed from load_job_data
+    df = load_tech_job_data()  # changed from load_tech_job_data
     skill_counts = extract_skills_list(df)
 
     filtered_skills = {}
@@ -58,17 +58,37 @@ def get_industry_skills(top_n=300):
 
     return filtered_skills
 
-def compute_gap(top_n_skills=300):
+def compute_gap(top_n_skills=300, syllabus_text=None):
     """Compare industry skills vs syllabus content"""
     print("Fetching top industry skills...")
     industry_skills = get_industry_skills(top_n=top_n_skills)
 
-    print("Loading syllabus...")
-    syllabus_text = load_syllabus()
+    if syllabus_text is None:
+        print("Loading syllabus from file...")
+        syllabus_text = load_syllabus()
 
     if not syllabus_text:
-        print("Error: Syllabus file not found!")
+        print("Error: Syllabus is empty!")
         return None
+
+    skill_names = list(industry_skills.keys())
+    skill_freq = list(industry_skills.values())
+
+    gap_report = []
+    syllabus_lower = syllabus_text.lower()
+
+    for i, skill in enumerate(skill_names):
+        is_covered = skill.lower() in syllabus_lower
+        gap_report.append({
+            'skill': skill,
+            'industry_frequency': skill_freq[i],
+            'in_syllabus': is_covered,
+            'is_gap': not is_covered
+        })
+
+    df_report = pd.DataFrame(gap_report)
+    df_report = df_report.sort_values('industry_frequency', ascending=False)
+    return df_report
 
     skill_names = list(industry_skills.keys())
     skill_freq = list(industry_skills.values())
