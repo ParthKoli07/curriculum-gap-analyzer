@@ -127,6 +127,18 @@ def show_main_app():
                 st.warning("⚠️ Please upload a syllabus file")
 
         st.markdown("---")
+        st.markdown("### 📄 Resume (Optional)")
+        st.markdown("*Upload your resume to personalize the gap analysis*")
+        uploaded_resume = st.file_uploader(
+            "Upload your resume",
+            type=["txt", "pdf"],
+            help="Skills found in your resume won't show as gaps"
+        )
+        if uploaded_resume:
+            st.success("✅ Resume uploaded!")
+
+
+        st.markdown("---")
         run_btn = st.button("🚀 Run Analysis", width='stretch', type="primary")
 
         st.markdown("---")
@@ -152,7 +164,7 @@ def show_main_app():
                 st.markdown(f"**{r[0]}** — Coverage: {r[1]}% | Gaps: {r[2]} | Covered: {r[3]} | *{r[4]}*")
 
     if run_btn:
-        # Handle syllabus
+        # Handle syllabus FIRST
         syllabus_text = None
         if syllabus_option == "Upload my own":
             if uploaded_syllabus is None:
@@ -166,6 +178,19 @@ def show_main_app():
                 syllabus_text = ""
                 for page in pdf_reader.pages:
                     syllabus_text += page.extract_text()
+        else:
+            # Load default syllabus
+            from app.preprocess import load_syllabus
+            syllabus_text = load_syllabus()
+
+        # Handle resume
+        resume_skills = []
+        if uploaded_resume is not None:
+            from app.resume_parser import extract_skills_from_resume, combine_syllabus_and_resume
+            resume_skills = extract_skills_from_resume(uploaded_resume, uploaded_resume.type)
+            if resume_skills:
+                st.info(f"📄 Found **{len(resume_skills)}** skills in your resume: {', '.join(resume_skills[:10])}{'...' if len(resume_skills) > 10 else ''}")
+            syllabus_text = combine_syllabus_and_resume(syllabus_text, resume_skills)
 
         with st.spinner("🔍 Analyzing 32,000+ tech job postings... please wait ⏳"):
             df_report, recommendations = run_analysis(

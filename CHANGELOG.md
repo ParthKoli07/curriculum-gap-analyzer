@@ -89,3 +89,14 @@
 - Updated matcher.py compute_gap() to accept custom syllabus text
 - Updated main.py run_analysis() to pass syllabus text through pipeline
 - Tested with custom syllabus upload — 24.3% coverage confirmed
+
+## [Day 10] — 2026-07-17
+### Login & Authentication System
+- Built app/auth.py with SQLite database
+- Added user signup with bcrypt password hashing
+- Added user login with session management
+- Added saved reports feature per user
+- Added logout button
+- Login/signup page with tabbed UI
+- User's college name and greeting shown in sidebar after login
+- Reports automatically saved after each analysis
