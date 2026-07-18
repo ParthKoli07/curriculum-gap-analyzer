@@ -100,3 +100,11 @@
 - Login/signup page with tabbed UI
 - User's college name and greeting shown in sidebar after login
 - Reports automatically saved after each analysis
+
+## [Day 11] — 2026-07-18
+### Resume Upload & Personalized Gap Analysis
+- Built app/resume_parser.py with skill extraction from PDF/TXT resumes
+- Added resume file uploader to sidebar (optional)
+- Resume skills combined with syllabus for personalized gap analysis
+- Tested: 22 skills detected from resume, coverage improved from 23.7% to 26.3%
+- 8 fewer gaps shown when resume is uploaded
