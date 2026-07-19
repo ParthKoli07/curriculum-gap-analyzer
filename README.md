@@ -26,6 +26,11 @@ University syllabuses are updated infrequently and often lag behind fast-moving 
 - 📈 Visual bar charts for gap distribution
 - 💾 Export full gap report as CSV
 - ⚙️ Adjustable analysis settings via sidebar
+- 📄 Upload your own syllabus (TXT or PDF)
+- 📝 Upload your resume to personalize gap analysis
+- 🎯 Role-specific analysis (Data Scientist, Software Engineer, DevOps, and 14 more)
+- 🔐 User login & signup with saved reports history
+- 🌐 Live deployed on Streamlit Community Cloud
 
 ---
 
@@ -115,6 +120,10 @@ streamlit run streamlit_app.py
 - Python, SQL, Java, AWS, Docker, Kubernetes, JavaScript, Agile
 
 ---
+
+## 🚀 Live Demo
+
+👉 **[Try it live: curriculum-gap-analyzer.streamlit.app](https://curriculum-gap-analyzer.streamlit.app)**
 
 ## 👨‍💻 Author
 
