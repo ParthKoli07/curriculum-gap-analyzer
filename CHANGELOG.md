@@ -108,3 +108,14 @@
 - Resume skills combined with syllabus for personalized gap analysis
 - Tested: 22 skills detected from resume, coverage improved from 23.7% to 26.3%
 - 8 fewer gaps shown when resume is uploaded
+
+## [Day 12] — 2026-07-19
+### Job Role Filter
+- Added Target Job Role section in sidebar
+- General vs Role-Specific analysis modes
+- 17 job roles available (Data Scientist, Software Engineer, DevOps etc.)
+- Role-specific gap analysis filters dataset to specific job titles
+- Resume + role-specific analysis combined working
+- Added get_skills_for_role() to preprocess.py
+- Added compute_gap_for_role() to matcher.py
+- Added run_role_analysis() to main.py
