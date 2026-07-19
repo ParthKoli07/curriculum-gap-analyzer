@@ -16,22 +16,8 @@ st.set_page_config(
 st.markdown("""
     <style>
     .main { padding: 2rem; }
-    .title-text {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #ffffff;
-    }
-    .subtitle-text {
-        font-size: 1.1rem;
-        color: #a0aec0;
-    }
-    .login-box {
-        background-color: #1e1e2e;
-        padding: 2rem;
-        border-radius: 12px;
-        max-width: 400px;
-        margin: auto;
-    }
+    .title-text { font-size: 2.5rem; font-weight: 700; color: #ffffff; }
+    .subtitle-text { font-size: 1.1rem; color: #a0aec0; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -42,6 +28,10 @@ if "user" not in st.session_state:
     st.session_state.user = None
 if "page" not in st.session_state:
     st.session_state.page = "login"
+if "analysis_mode" not in st.session_state:
+    st.session_state.analysis_mode = "General (All Tech Jobs)"
+if "selected_role" not in st.session_state:
+    st.session_state.selected_role = None
 
 # ─── LOGIN / SIGNUP PAGE ───────────────────────────────────────
 def show_auth_page():
@@ -75,8 +65,8 @@ def show_auth_page():
             st.markdown("### Create an account")
             new_username = st.text_input("Username", key="signup_username")
             new_email = st.text_input("Email", key="signup_email")
-            new_college = st.text_input("College Name", key="signup_college", 
-                                         placeholder="e.g. Satish Pradhan Dnyanasadhana College")
+            new_college = st.text_input("College Name", key="signup_college",
+                                        placeholder="e.g. Satish Pradhan Dnyanasadhana College")
             new_password = st.text_input("Password", type="password", key="signup_password")
             confirm_password = st.text_input("Confirm Password", type="password", key="confirm_password")
 
@@ -115,7 +105,6 @@ def show_main_app():
             "Choose syllabus source:",
             ["Use default (BSc CS)", "Upload my own"]
         )
-
         uploaded_syllabus = None
         if syllabus_option == "Upload my own":
             uploaded_syllabus = st.file_uploader(
@@ -127,6 +116,29 @@ def show_main_app():
                 st.warning("⚠️ Please upload a syllabus file")
 
         st.markdown("---")
+        st.markdown("### 🎯 Target Job Role")
+        analysis_mode = st.radio(
+            "Analysis mode:",
+            ["General (All Tech Jobs)", "Role-Specific"],
+            key="analysis_mode"
+        )
+        selected_role = None
+        if st.session_state.analysis_mode == "Role-Specific":
+            selected_role = st.selectbox(
+                "Select your target role:",
+                [
+                    "Data Scientist", "Data Analyst", "Data Engineer",
+                    "Software Engineer", "Machine Learning", "DevOps Engineer",
+                    "Network Engineer", "Systems Engineer", "Solutions Architect",
+                    "Automation Engineer", "Infrastructure Engineer", "Full Stack",
+                    "Backend", "Frontend", "Cloud Engineer", "Cybersecurity",
+                    "Mobile Developer",
+                ],
+                key="selected_role"
+            )
+            st.info(f"🎯 Analyzing gaps for: **{selected_role}**")
+
+        st.markdown("---")
         st.markdown("### 📄 Resume (Optional)")
         st.markdown("*Upload your resume to personalize the gap analysis*")
         uploaded_resume = st.file_uploader(
@@ -136,7 +148,6 @@ def show_main_app():
         )
         if uploaded_resume:
             st.success("✅ Resume uploaded!")
-
 
         st.markdown("---")
         run_btn = st.button("🚀 Run Analysis", width='stretch', type="primary")
@@ -156,7 +167,7 @@ def show_main_app():
     st.markdown('<p class="subtitle-text">Compares your college syllabus against real industry job requirements to find skill gaps</p>', unsafe_allow_html=True)
     st.markdown("---")
 
-    # Saved reports section
+    # Saved reports
     reports = get_user_reports(st.session_state.user['id'])
     if reports:
         with st.expander(f"📂 Your Saved Reports ({len(reports)})"):
@@ -164,40 +175,63 @@ def show_main_app():
                 st.markdown(f"**{r[0]}** — Coverage: {r[1]}% | Gaps: {r[2]} | Covered: {r[3]} | *{r[4]}*")
 
     if run_btn:
-        # Handle syllabus FIRST
-        syllabus_text = None
-        if syllabus_option == "Upload my own":
-            if uploaded_syllabus is None:
-                st.error("❌ Please upload a syllabus file first!")
-                st.stop()
-            if uploaded_syllabus.type == "text/plain":
-                syllabus_text = uploaded_syllabus.read().decode("utf-8")
-            elif uploaded_syllabus.type == "application/pdf":
-                import PyPDF2
-                pdf_reader = PyPDF2.PdfReader(uploaded_syllabus)
-                syllabus_text = ""
-                for page in pdf_reader.pages:
-                    syllabus_text += page.extract_text()
-        else:
-            # Load default syllabus
-            from app.preprocess import load_syllabus
-            syllabus_text = load_syllabus()
+        reports = get_user_reports(st.session_state.user['id'])
 
-        # Handle resume
-        resume_skills = []
+        # Handle syllabus + resume
+        syllabus_text = None
+
+        # Step 1: Handle resume first
         if uploaded_resume is not None:
             from app.resume_parser import extract_skills_from_resume, combine_syllabus_and_resume
             resume_skills = extract_skills_from_resume(uploaded_resume, uploaded_resume.type)
             if resume_skills:
                 st.info(f"📄 Found **{len(resume_skills)}** skills in your resume: {', '.join(resume_skills[:10])}{'...' if len(resume_skills) > 10 else ''}")
-            syllabus_text = combine_syllabus_and_resume(syllabus_text, resume_skills)
+                syllabus_text = " ".join(resume_skills)
 
-        with st.spinner("🔍 Analyzing 32,000+ tech job postings... please wait ⏳"):
-            df_report, recommendations = run_analysis(
-                top_n_skills=top_n,
-                top_n_recommendations=top_recs,
-                syllabus_text=syllabus_text
-            )
+        # Step 2: Handle syllabus — combine if resume also uploaded
+        if syllabus_option == "Upload my own":
+            if uploaded_syllabus is not None:
+                if uploaded_syllabus.type == "text/plain":
+                    syl_text = uploaded_syllabus.read().decode("utf-8")
+                elif uploaded_syllabus.type == "application/pdf":
+                    import PyPDF2
+                    pdf_reader = PyPDF2.PdfReader(uploaded_syllabus)
+                    syl_text = ""
+                    for page in pdf_reader.pages:
+                        syl_text += page.extract_text()
+                syllabus_text = (syllabus_text + " " + syl_text) if syllabus_text else syl_text
+        else:
+            # Use default syllabus only if no resume uploaded
+            if syllabus_text is None:
+                from app.preprocess import load_syllabus
+                syllabus_text = load_syllabus()
+            else:
+                # Combine resume with default syllabus
+                from app.preprocess import load_syllabus
+                from app.resume_parser import combine_syllabus_and_resume
+                default_syllabus = load_syllabus()
+                syllabus_text = combine_syllabus_and_resume(default_syllabus, resume_skills)
+
+        if not syllabus_text:
+            st.error("❌ Please upload a resume or syllabus to run the analysis!")
+            st.stop()
+
+        with st.spinner("🔍 Analyzing job postings... please wait ⏳"):
+            if st.session_state.analysis_mode == "Role-Specific" and st.session_state.selected_role:
+                from app.main import run_role_analysis
+                df_report, recommendations = run_role_analysis(
+                    role_keyword=st.session_state.selected_role,
+                    top_n_skills=top_n,
+                    top_n_recommendations=top_recs,
+                    syllabus_text=syllabus_text
+                )
+                st.success(f"✅ Role-specific analysis for: **{st.session_state.selected_role}**")
+            else:
+                df_report, recommendations = run_analysis(
+                    top_n_skills=top_n,
+                    top_n_recommendations=top_recs,
+                    syllabus_text=syllabus_text
+                )
 
         if df_report is None:
             st.error("❌ Something went wrong. Please try again.")
@@ -207,7 +241,7 @@ def show_main_app():
         covered = df_report[df_report['is_gap'] == False]
         coverage_pct = round(len(covered) / len(df_report) * 100, 1)
 
-        # Save report automatically
+        # Save report
         save_report(
             st.session_state.user['id'],
             f"Analysis #{len(reports)+1}",
@@ -235,7 +269,6 @@ def show_main_app():
             st.success("🎉 Good coverage — your syllabus aligns well with industry!")
 
         st.markdown("---")
-
         col_left, col_right = st.columns(2)
         with col_left:
             st.markdown("### ❌ Top Skill Gaps")

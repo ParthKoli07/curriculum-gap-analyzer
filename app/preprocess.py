@@ -123,26 +123,30 @@ def load_syllabus(syllabus_path="data/syllabus.txt"):
         print(f"Syllabus file not found at {syllabus_path}")
         return ""
 
-
-if __name__ == "__main__":
-
-    # Load tech jobs from Hugging Face
-    df = load_tech_job_data()
-
-    if not df.empty:
-
-        print("\nDataset preview:")
-        print(df.head())
-
-        print("\nDataset columns:")
-        print(df.columns.tolist())
-
-        print("\nTop 20 most common tech skills:")
-
-        skill_counts = extract_skills_list(df)
-
-        for skill, count in skill_counts.most_common(20):
-            print(f"{skill}: {count}")
-
-    else:
-        print("No job data was loaded.")
+def get_skills_for_role(role_keyword,
+                         skills_path='data/tech_jobs_filtered.csv'):
+    """Get top skills for a specific job role"""
+    from collections import Counter
+    
+    print(f"Loading skills for role: {role_keyword}...")
+    df = pd.read_csv(skills_path)
+    
+    # Filter by role keyword
+    role_df = df[
+        df['job_title'].str.lower().str.contains(role_keyword.lower(), na=False)
+    ]
+    
+    print(f"Found {len(role_df)} job postings for '{role_keyword}'")
+    
+    if len(role_df) == 0:
+        return {}
+    
+    # Extract skills
+    all_skills = []
+    for skills_str in role_df['job_skills'].dropna():
+        skills_str = re.sub(r"[\[\]']", '', str(skills_str))
+        skills = [s.strip().lower() for s in skills_str.split(',') if s.strip()]
+        all_skills.extend(skills)
+    
+    skill_counts = Counter(all_skills)
+    return dict(skill_counts)

@@ -48,3 +48,25 @@ def run_analysis(top_n_skills=300, top_n_recommendations=10, syllabus_text=None)
 
 if __name__ == "__main__":
     run_analysis(top_n_skills=300, top_n_recommendations=10)
+
+def run_role_analysis(role_keyword, top_n_skills=200, 
+                      top_n_recommendations=10, syllabus_text=None):
+    """Run gap analysis for a specific job role"""
+    from app.matcher import compute_gap_for_role, print_gap_summary
+    from app.recommender import recommend_for_gaps, print_recommendations
+
+    print(f"\nRunning role-specific analysis for: {role_keyword}")
+    
+    df_report = compute_gap_for_role(
+        role_keyword, 
+        top_n_skills=top_n_skills,
+        syllabus_text=syllabus_text
+    )
+    
+    if df_report is None:
+        return None, None
+    
+    gaps, covered = print_gap_summary(df_report)
+    recommendations = recommend_for_gaps(df_report, top_n=top_n_recommendations)
+    
+    return df_report, recommendations

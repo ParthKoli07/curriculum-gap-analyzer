@@ -58,6 +58,51 @@ def get_industry_skills(top_n=300):
 
     return filtered_skills
 
+def compute_gap_for_role(role_keyword, top_n_skills=200, syllabus_text=None):
+    """Compare skills for a specific job role vs syllabus"""
+    from app.preprocess import get_skills_for_role
+    
+    print(f"Fetching skills for role: {role_keyword}...")
+    role_skills = get_skills_for_role(role_keyword)
+    
+    if not role_skills:
+        print(f"No jobs found for role: {role_keyword}")
+        return None
+    
+    # Filter soft skills
+    filtered_skills = {
+        skill: count
+        for skill, count in sorted(role_skills.items(), key=lambda x: x[1], reverse=True)
+        if skill.lower() not in SOFT_SKILLS and len(skill) > 2
+    }
+    
+    # Take top N
+    top_skills = dict(list(filtered_skills.items())[:top_n_skills])
+    
+    if syllabus_text is None:
+        syllabus_text = load_syllabus()
+    
+    if not syllabus_text:
+        return None
+    
+    skill_names = list(top_skills.keys())
+    skill_freq = list(top_skills.values())
+    syllabus_lower = syllabus_text.lower()
+    
+    gap_report = []
+    for i, skill in enumerate(skill_names):
+        is_covered = skill.lower() in syllabus_lower
+        gap_report.append({
+            'skill': skill,
+            'industry_frequency': skill_freq[i],
+            'in_syllabus': is_covered,
+            'is_gap': not is_covered
+        })
+    
+    df_report = pd.DataFrame(gap_report)
+    df_report = df_report.sort_values('industry_frequency', ascending=False)
+    return df_report
+
 def compute_gap(top_n_skills=300, syllabus_text=None):
     """Compare industry skills vs syllabus content"""
     print("Fetching top industry skills...")
