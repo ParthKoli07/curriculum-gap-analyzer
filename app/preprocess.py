@@ -129,7 +129,17 @@ def get_skills_for_role(role_keyword,
     from collections import Counter
     
     print(f"Loading skills for role: {role_keyword}...")
-    df = pd.read_csv(skills_path)
+    
+    # Try local file first, fall back to HuggingFace
+    try:
+        df = pd.read_csv(skills_path)
+        print(f"Loaded from local file")
+    except FileNotFoundError:
+        print(f"Local file not found, loading from HuggingFace...")
+        from datasets import load_dataset
+        dataset = load_dataset('T1METURNER/tech-jobs-dataset')
+        df = pd.DataFrame(dataset['train'])
+        print(f"Loaded from HuggingFace")
     
     # Filter by role keyword
     role_df = df[
