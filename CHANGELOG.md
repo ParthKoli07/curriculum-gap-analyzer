@@ -119,3 +119,13 @@
 - Added get_skills_for_role() to preprocess.py
 - Added compute_gap_for_role() to matcher.py
 - Added run_role_analysis() to main.py
+
+## [Day 13] — 2026-07-20
+### Supabase Cloud Database Migration
+- Migrated from SQLite to Supabase PostgreSQL
+- Created users and saved_reports tables in Supabase
+- Updated app/auth.py to use Supabase client
+- Added environment variables for Supabase credentials
+- Added secrets to Streamlit Cloud deployment
+- Saved reports now persist across redeploys
+- Login and signup working on live deployed app
