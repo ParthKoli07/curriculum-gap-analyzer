@@ -6,3 +6,4 @@ data/raw/
 *.pdf
 data/*.csv
 data/*.parquet
+.env

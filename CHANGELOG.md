@@ -128,4 +128,5 @@
 - Added environment variables for Supabase credentials
 - Added secrets to Streamlit Cloud deployment
 - Saved reports now persist across redeploys
+- Fixed role-specific analysis on deployed app — HuggingFace fallback added
 - Login and signup working on live deployed app

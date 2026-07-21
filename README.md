@@ -5,7 +5,14 @@
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-UI-red)
 ![NLP](https://img.shields.io/badge/NLP-spaCy%20%7C%20sklearn-green)
+![Supabase](https://img.shields.io/badge/Database-Supabase-darkgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+
+---
+
+## 🌐 Live Demo
+
+👉 **[Try it live: curriculum-gap-analyzer.streamlit.app](https://curriculum-gap-analyzer.streamlit.app)**
 
 ---
 
@@ -13,7 +20,7 @@
 
 University syllabuses are updated infrequently and often lag behind fast-moving industry demands. Students graduate without knowing exactly which skills they're missing — leading to poor placement outcomes.
 
-**Curriculum Gap Analyzer** solves this by automatically identifying the gaps between what your syllabus teaches and what companies are actually hiring for.
+**Curriculum Gap Analyzer** solves this by automatically identifying the gaps between what your syllabus teaches and what companies are actually hiring for — personalized to your resume and target job role.
 
 ---
 
@@ -30,6 +37,7 @@ University syllabuses are updated infrequently and often lag behind fast-moving 
 - 📝 Upload your resume to personalize gap analysis
 - 🎯 Role-specific analysis (Data Scientist, Software Engineer, DevOps, and 14 more)
 - 🔐 User login & signup with saved reports history
+- ☁️ Persistent cloud database via Supabase
 - 🌐 Live deployed on Streamlit Community Cloud
 
 ---
@@ -43,7 +51,10 @@ University syllabuses are updated infrequently and often lag behind fast-moving 
 | Data Processing | pandas, NumPy |
 | Visualization | Streamlit charts, matplotlib |
 | UI | Streamlit |
-| Dataset | LinkedIn Job Postings 2024 (Kaggle) |
+| Database | Supabase (PostgreSQL) |
+| Authentication | bcrypt + Supabase |
+| Dataset | LinkedIn Job Postings 2024 (HuggingFace) |
+| Deployment | Streamlit Community Cloud |
 | Version Control | Git / GitHub |
 
 ---
@@ -55,15 +66,18 @@ curriculum-gap-analyzer/
 ├── app/
 │   ├── __init__.py
 │   ├── preprocess.py      # Data loading, cleaning, tech job filtering
-│   ├── matcher.py         # TF-IDF gap analysis engine
+│   ├── matcher.py         # Gap analysis engine
 │   ├── recommender.py     # Free resource recommendations
+│   ├── resume_parser.py   # Resume skill extraction
+│   ├── auth.py            # Supabase authentication
 │   └── main.py            # Pipeline orchestrator
 ├── data/
-│   ├── syllabus.txt       # College syllabus input
-│   └── gap_report.csv     # Generated gap report (auto-created)
+│   └── syllabus.txt       # Default BSc CS syllabus
+├── docs/
+│   └── demo_screenshot.png
 ├── streamlit_app.py       # Main Streamlit dashboard
-├── requirements.txt       # Python dependencies
-├── CHANGELOG.md           # Daily development log
+├── requirements.txt
+├── CHANGELOG.md
 └── README.md
 ```
 
@@ -89,13 +103,12 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 
-### 4. Download the dataset
-Download the LinkedIn Job Postings dataset from Kaggle:
-👉 [1.3M LinkedIn Jobs & Skills 2024](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024)
-
-Place these two files in the `data/` folder:
-- `job_skills.csv`
-- `linkedin_job_postings.csv`
+### 4. Set up environment variables
+Create a `.env` file:
+```
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_anon_key
+```
 
 ### 5. Run the app
 ```bash
@@ -121,15 +134,13 @@ streamlit run streamlit_app.py
 
 ---
 
-## 🚀 Live Demo
-
-👉 **[Try it live: curriculum-gap-analyzer.streamlit.app](https://curriculum-gap-analyzer.streamlit.app)**
-
 ## 👨‍💻 Author
 
 **Parth Koli**
 Final Year BSc Computer Science
 Satish Pradhan Dnyanasadhana College, Thane
+Academic Year 2026-27
+Guide: Dr. Sujatha Iyer
 
 ---
 
