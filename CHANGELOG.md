@@ -130,3 +130,18 @@
 - Saved reports now persist across redeploys
 - Fixed role-specific analysis on deployed app — HuggingFace fallback added
 - Login and signup working on live deployed app
+
+## [Day 14] — 2026-07-20
+### Final README & Screenshots
+- Updated README with live deployment URL
+- Added full feature list including resume upload, role filter, login system
+- Updated tech stack table with Supabase and HuggingFace
+- Added new demo screenshot showing full dashboard
+- Added author section with college and guide details
+
+## [Day 15] — 2026-07-22
+### Security & Final Polish
+- Enabled Row Level Security (RLS) on Supabase users and saved_reports tables
+- Added RLS policies for insert and select on both tables
+- Fixed critical security vulnerability flagged by Supabase
+- Final project review and submission preparation
